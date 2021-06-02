@@ -9,35 +9,36 @@ public class ServidorBasico {
   public static void main(String[] args) {
     try {
       ServerSocket socket = new ServerSocket(9998);
+      System.out.println("ServidorBasico iniciado!");
 
-      while (true) {
+      // while (true) { FIXME: Precisa fechar o servidor depois de calcular
         Socket client = socket.accept();
         ObjectInputStream input = new ObjectInputStream(client.getInputStream());
         ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
-        String num1, sinal, num2, erro;
-        num1 = sinal = num2 = erro = "";
-        double double1, double2, resultado = 0;
         boolean sucesso = true;
+        String num1, sinal, num2, erro;
+        double double1, double2, resultado;
+
+        num1 = sinal = num2 = erro = "";
+        double1 = double2 = resultado = 0;
 
         sinal = (String) input.readObject();
         num1 = (String) input.readObject();
 
-        double1 = 0;
         try {
           double1 = Double.parseDouble(num1);
         } catch (NumberFormatException e) {
           sucesso = false;
-          erro = "\"" + num1 + "\"" + " não é um numero";
+          erro = "\"" + num1 + "\"" + " não é um número";
         }
 
         num2 = (String) input.readObject();
 
-        double2 = 0;
         try {
           double2 = Double.parseDouble(num2);
         } catch (NumberFormatException e) {
           sucesso = false;
-          erro = "\"" + num2 + "\"" + " não é um numero";
+          erro = "\"" + num2 + "\"" + " não é um número";
         }
 
         if (sucesso) {
@@ -72,7 +73,7 @@ public class ServidorBasico {
           sucesso = true;
           erro = null;
         }
-      }
+      // }
     }
     catch (Exception err) {
       err.printStackTrace();
