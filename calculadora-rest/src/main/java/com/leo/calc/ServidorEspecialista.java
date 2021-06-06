@@ -11,7 +11,7 @@ public class ServidorEspecialista {
       ServerSocket socket = new ServerSocket(9999);
       System.out.println("ServidorEspecialista iniciado!");
 
-      // while (true) {
+      while (true) {
         Socket client = socket.accept();
         ObjectInputStream input = new ObjectInputStream(client.getInputStream());
         ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
@@ -68,7 +68,7 @@ public class ServidorEspecialista {
           sucesso = true;
           erro = null;
         }
-      // }
+      }
     }
     catch (Exception err) {
       err.printStackTrace();

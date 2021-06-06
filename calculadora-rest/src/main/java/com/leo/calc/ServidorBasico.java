@@ -11,7 +11,7 @@ public class ServidorBasico {
       ServerSocket socket = new ServerSocket(9998);
       System.out.println("ServidorBasico iniciado!");
 
-      // while (true) { FIXME: Precisa fechar o servidor depois de calcular
+      while (true) {
         Socket client = socket.accept();
         ObjectInputStream input = new ObjectInputStream(client.getInputStream());
         ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
@@ -73,7 +73,7 @@ public class ServidorBasico {
           sucesso = true;
           erro = null;
         }
-      // }
+      }
     }
     catch (Exception err) {
       err.printStackTrace();

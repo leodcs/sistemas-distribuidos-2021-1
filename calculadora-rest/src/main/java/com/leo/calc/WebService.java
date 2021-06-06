@@ -33,6 +33,8 @@ public class WebService {
               }
 
               return chamaOperacao(sinal, x, y);
+            } catch (org.json.JSONException e) {
+              return "Envie X e Y no body da requisição!";
             } catch (Exception e) {
               System.out.println(e);
               return e;
@@ -43,19 +45,21 @@ public class WebService {
 
   private static String chamaOperacao(String sinal, String x, String y) {
     try {
-      Socket socketA = new Socket("127.0.0.1", 9998);
-      Socket socketB = new Socket("127.0.0.1", 9999);
-      ObjectOutputStream outputA = new ObjectOutputStream(socketA.getOutputStream());
-      ObjectInputStream inputA = new ObjectInputStream(socketA.getInputStream());
-      ObjectOutputStream outputB = new ObjectOutputStream(socketB.getOutputStream());
-      ObjectInputStream inputB = new ObjectInputStream(socketB.getInputStream());
       List<String> sinais = Arrays.asList("+","-","*","/","%","√","^");
       String resultado;
       resultado = "";
 
       if (sinais.indexOf(sinal) <= 3) { // ServidorBasico
+        Socket socketA = new Socket("127.0.0.1", 9998);
+        ObjectOutputStream outputA = new ObjectOutputStream(socketA.getOutputStream());
+        ObjectInputStream inputA = new ObjectInputStream(socketA.getInputStream());
+
         resultado = callServer(sinal, x, y, inputA, outputA);
       } else { // ServidorEspecialista
+        Socket socketB = new Socket("127.0.0.1", 9999);
+        ObjectOutputStream outputB = new ObjectOutputStream(socketB.getOutputStream());
+        ObjectInputStream inputB = new ObjectInputStream(socketB.getInputStream());
+
         resultado = callServer(sinal, x, y, inputB, outputB);
       };
 
